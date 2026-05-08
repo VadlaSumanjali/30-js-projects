@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>counter app</h1>
+    <h2 id="text">0</h2>
+    <button id="add" onclick="inc()">+</button>
+    <button id="zero" onclick="zero()">0</button>
+    <button id="sub" onclick="dec()">-</button>
+<script>
+    const text=document.getElementById("text")
+    let score=0
+    function show(){
+        text.textContent=score
+    }
+    function inc(){
+        score+=1;
+        show()
+    }function zero(){
+        score=0;
+        show()
+    }function dec(){
+        score-=1;
+        show()
+    }show()
+
+</script>
+</body>
+</html>
