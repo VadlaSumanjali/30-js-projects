@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="clock-container">
+        <h1>Digital Clock</h1>
+
+        <h2 id="time"></h2>
+        <p id="date"></p>
+
+        <button onclick="toggleFormat()">
+            Switch Format
+        </button>
+    </div>
+<script>
+function update(){
+    const now=new Date();
+    const time=document.getElementById("time")
+    const date=document.getElementById("date")
+
+    const hours=now.getHours()
+    const minutes=now.getMinutes()
+    const seconds=now.getSeconds()
+
+    hours = String(hours).padStart(2,'0');
+    minutes = String(minutes).padStart(2,'0');
+    seconds =String(seconds).padStart(2,'0');
+       
+    date.textContent=`${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()}`;
+    time.textContent=`${hours}:${minutes}:${seconds}`;
+}
+setInterval(update,1000)
+update()
+</script>
+</body>
+</html>
