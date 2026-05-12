@@ -3,37 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Counter App</title>
     <style>
-        body{
-            background-color: black;
-            color: aliceblue;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
+
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 3rem 4rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #e0e0ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #text {
+            font-size: 6rem;
+            font-weight: 800;
+            margin: 1rem 0 2rem;
+            text-shadow: 0 0 20px rgba(100, 150, 255, 0.5);
+            color: #64ffda;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        #add { color: #64ffda; }
+        #sub { color: #ff6b6b; }
+        #zero { color: #feca57; }
+
     </style>
 </head>
 <body>
-    <h1>counter app</h1>
-    <h2 id="text">0</h2>
-    <button id="add" onclick="inc()">+</button>
-    <button id="zero" onclick="zero()">0</button>
-    <button id="sub" onclick="dec()">-</button>
-<script>
-    const text=document.getElementById("text")
-    let score=0
-    function show(){
-        text.textContent=score
-    }
-    function inc(){
-        score+=1;
-        show()
-    }function zero(){
-        score=0;
-        show()
-    }function dec(){
-        score-=1;
-        show()
-    }show()
-
-</script>
+    <div class="container">
+        <h1>Counter App</h1>
+        <h2 id="text">0</h2>
+        <div class="buttons">
+            <button id="sub" onclick="dec()">-</button>
+            <button id="zero" onclick="zero()">0</button>
+            <button id="add" onclick="inc()">+</button>
+        </div>
+    </div>
+    <script>
+        const text=document.getElementById("text")
+        let score=0
+        function show(){
+            text.textContent=score
+        }
+        function inc(){
+            score+=1;
+            show()
+        }function zero(){
+            score=0;
+            show()
+        }function dec(){
+            score-=1;
+            show()
+        }show()
+    </script>
 </body>
 </html>

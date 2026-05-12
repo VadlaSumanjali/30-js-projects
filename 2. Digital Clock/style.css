@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.clock-container {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem 4rem;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.clock-container:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #a8b2d1;
+    margin-bottom: 0.5rem;
+}
+
+#time {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: #00f2fe;
+    text-shadow: 0 0 20px rgba(0, 242, 254, 0.5), 0 0 40px rgba(0, 242, 254, 0.2);
+    margin: 0;
+}
+
+#date {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #e6f1ff;
+    letter-spacing: 2px;
+}
+
+button {
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 2px solid #00f2fe;
+    color: #00f2fe;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background: #00f2fe;
+    color: #0f2027;
+    box-shadow: 0 0 15px #00f2fe;
+}
