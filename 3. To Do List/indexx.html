@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>To Do List</h1>
+        <input type="text" id="input">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+    <div>
+        <ul id="tasks" ></ul>
+    </div>
+
+<script>
+    let arr=[];
+    let idx=0;
+    const tasks=document.getElementById("tasks")
+    function addTask(){
+        const input=document.getElementById("input").value;
+        //console.log(input)
+        arr.push({
+            id:idx,
+            task:input
+        })
+        idx++;
+        show()
+    }
+    function show(){
+        
+        for(let i=0;i<arr.length;i++){
+            const li=document.createElement("li")
+            const del=document.createElement("button")
+            del.addEventListener("click",)
+            li.textContent=arr[i].task
+            tasks.appendChild(li)
+        }
+    }
+</script>
+</body>
+</html>
