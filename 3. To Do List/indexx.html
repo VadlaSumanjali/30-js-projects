@@ -35,12 +35,16 @@
         idx++;
         show()
     }
+    function deltask(id){
+        arr=arr.filter((i)=>i.id!=id)
+        show()
+    }
     function show(){
-        
+        task.textContent=""
         for(let i=0;i<arr.length;i++){
             const li=document.createElement("li")
             const del=document.createElement("button")
-            del.addEventListener("click",)
+            del.addEventListener("click",()=>{deltask(id)})
             li.textContent=arr[i].task
             tasks.appendChild(li)
         }
