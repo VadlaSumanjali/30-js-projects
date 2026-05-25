@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guess Game</title>
+
+    <style>
+        *{
+            background-color: black;
+            color: wheat;
+            font-family: Arial;
+        }
+
+        body{
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        input,button{
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Number Guess Game</h1>
+
+    <p id="three">Enter the 3 digit number</p>
+
+    <input type="number" id="inputNumber">
+
+    <button id="enter">Enter</button>
+
+    <h2 id="result">
+        You have 3 chances to guess the game
+    </h2>
+
+    <button id="restart">Restart</button>
+
+<script>
+
+    let number;
+    let count;
+
+    const enter = document.getElementById("enter");
+    const result = document.getElementById("result");
+    const restart = document.getElementById("restart");
+    const three = document.getElementById("three");
+    const inputBox = document.getElementById("inputNumber");
+
+    function startGame(){
+
+        number = Math.floor(Math.random() * 900) + 100;
+
+        console.log(number);
+
+        count = 3;
+
+        result.textContent = "You have 3 chances to guess the game";
+
+        three.textContent = "Enter the 3 digit number";
+
+        inputBox.value = "";
+
+        inputBox.style.display = "inline";
+
+        enter.style.display = "inline";
+
+        restart.style.display = "none";
+    }
+
+    enter.addEventListener("click", function(){
+
+        const inputNumber = Number(inputBox.value);
+
+        if(inputNumber < 100 || inputNumber > 999){
+
+            result.textContent = "Enter only a 3 digit number";
+
+            return;
+        }
+
+        if(number === inputNumber){
+
+            result.textContent = "Your guess is correct";
+
+            restart.style.display = "block";
+
+            enter.style.display = "none";
+
+            inputBox.style.display = "none";
+        }
+
+        else if(number > inputNumber){
+
+            count--;
+
+            result.textContent =
+            `Your guess is too low. ${count} chances left`;
+        }
+
+        else{
+
+            count--;
+
+            result.textContent =
+            `Your guess is too high. ${count} chances left`;
+        }
+
+        inputBox.value = "";
+
+        if(count === 0 && number !== inputNumber){
+
+            three.textContent = `The number was ${number}`;
+
+            result.textContent = "Restart the game";
+
+            restart.style.display = "block";
+
+            enter.style.display = "none";
+
+            inputBox.style.display = "none";
+        }
+
+    });
+
+    restart.addEventListener("click", function(){
+
+        startGame();
+
+    });
+
+    startGame();
+
+</script>
+
+</body>
+</html>

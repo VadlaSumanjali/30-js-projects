@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Password Generator</title>
+  <style>
+    *{
+      background-color: black;
+      color: aliceblue;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Password Generator</h1>
+
+  <input type="text" id="password" readonly>
+
+  <div class="range-box">
+    <label>Password Length:
+      <span id="lengthValue">12</span>
+    </label>
+
+    <input type="range" id="length" min="4" max="30" value="12">
+  </div>
+
+  <div class="options">
+    <label>
+      <input type="checkbox" id="numbers" >
+      Include Numbers
+    </label>
+
+    <label>
+      <input type="checkbox" id="symbols" >
+      Include Symbols
+    </label>
+  </div>
+
+  <div class="buttons">
+    <button id="generate">Generate</button>
+    <button id="copy">Copy</button>
+  </div>
+</div>
+ <script>
+  let lengthValue=document.getElementById("lengthValue")
+  let length=document.getElementById("length")
+
+  lengthValue.textContent=length.value
+  length.addEventListener("input",function(){
+    lengthValue.textContent=length.value
+  })
+  const generate=document.getElementById("generate").addEventListener("click",generatepass)
+  function generatepass(){
+      let number=document.getElementById("numbers").checked
+      let symbols=document.getElementById('symbols').checked
+      let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      if(number){
+        chars += "0123456789"
+      }
+
+      if(symbols){
+        chars += "!@#$%^&*()"
+      }
+      let password = ""
+
+    for(let i = 0; i < length.value; i++){
+
+      let randomIndex = Math.floor(Math.random() * chars.length)
+
+      password += chars[randomIndex]
+    }
+
+    document.getElementById("password").value = password
+  }
+ </script>
+</body>
+</html>
