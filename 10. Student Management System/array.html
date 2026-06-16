@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+//    let i=prompt("enter the number")
+//     let sqr=(i)=>i*i
+//     console.log(sqr(i));
+    // let i=Number(prompt("enter the number"))
+    // const even=(i)=>i%2===0;
+    // console.log(even(i));
+    // let arr=[1,2,3,4]
+    // let n=arr.map(a=>a*a)
+    // console.log(n)
+    // const nums=[10,15,20,25,30];
+    // const f=nums.filter(n=>n%10===0)
+    // console.log(f)const 
+// students = [
+//   { name: "Suma", marks: 90 },
+//   { name: "Ram", marks: 45 },
+//   { name: "Sai", marks: 80 }
+// ];
+// const s=students.find(s=>s.name==="Sai")
+// console.log(s)
+let input = prompt("Enter 3 numbers separated by commas");
+let arr = input.split(",").map(Number);
+let a=arr[0]
+let b=arr[1]
+let c=arr[2]
+const largest = (a, b, c) => Math.max(a, b, c);
+
+console.log(largest(10, 5, 20));
+</script>
+</body>
+</html>

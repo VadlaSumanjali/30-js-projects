@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: black;
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Student Management System</h1>
+        <div>
+            <button onclick="addStudents()">Add Student</button>
+            <button onclick="deleteStudents()"> Delete Student</button>
+            <button onclick="searchStudent()">Search Student</button>
+            <button onclick="displayStudents()">Display Students</button>
+            <button onclick="countStudents()">Count Students</button>
+        </div>
+        <div id="result"></div>
+    </div>
+<script>
+    let students=[];
+    function deleteStudents(){
+        let name=prompt("enter student name")
+        let i=students.findIndex(s=>s.name===name)
+        if(i!==-1){
+            students.slice(i,1)
+            alert("student deleted")
+        }else{
+            alert("student does not exist")
+        }
+    }
+    function displayStudents(){
+        let result=document.getElementById("result")
+        if(students.length===0){
+            result.textContent="no students found"
+            return;
+        }
+        result.textContent=""
+        students.forEach(s=>{
+            let p=document.createElement("p")
+            p.textContent=`name ${s.name} marks ${s.marks}`
+            result.appendChild(p)
+        })
+    }
+    function countStudents() {
+        let result=document.getElementById("result")
+        result.textContent=`the total students ${students.length}`
+    }
+    function addStudents(){
+        let result=document.getElementById("result")
+        result.textContent=""
+        let name=document.createElement("input")
+        name.placeholder="enter the name"
+        let marks=document.createElement("input")
+        marks.placeholder="enter the marks"
+        marks.type="Number"
+        let button=document.createElement("button")
+        button.textContent="Add Students"
+        result.appendChild(name)
+        result.appendChild(marks)
+        result.appendChild(button)
+        button.addEventListener("click",()=>{
+            addStud(name.value, marks.value)
+            name.value=""
+            marks.value=""
+        })
+            // let sname=name.value
+            // let smarks=Number(marks.value)
+            // let s={
+            //     name:sname,
+            //     marks:smarks
+            // }
+            // students.push(s)
+            // console.log(students)
+            // document.getElementById("name").value=""
+    }
+    function addStud(name,marks){
+            let s={
+                name:name,
+                marks:Number(marks)
+            }
+            students.push(s)
+            console.log(students)
+    }
+    
+</script>
+</body>
+</html>

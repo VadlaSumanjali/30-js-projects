@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Marks Analyzer</h1>
+
+    <input
+        type="text"
+        id="marksInput"
+        placeholder="Enter marks separated by commas (e.g. 85,70,92,45,60)"
+    >
+
+    <br>
+
+    <button onclick="showTotal()">Show Total</button>
+    <button onclick="showAverage()">Show Average</button>
+    <button onclick="showHighest()">Highest Marks</button>
+    <button onclick="showLowest()">Lowest Marks</button>
+    <button onclick="countPassed()">Count Passed</button>
+
+    <div id="result"></div>
+
+    <script>
+        function getMarks() {
+            let input = document.getElementById("marksInput").value;
+
+            let marks = input
+                .split(",")
+                .map(mark => Number(mark.trim()));
+
+            return marks;
+        }
+
+        function showTotal() {
+            let marks = getMarks();
+
+            let total = 0;
+
+            for (let i = 0; i < marks.length; i++) {
+                total += marks[i];
+            }
+
+            document.getElementById("result").innerText =
+                "Total Marks: " + total;
+        }
+
+        function showAverage() {
+            let marks = getMarks();
+
+            let total = 0;
+
+            for (let i = 0; i < marks.length; i++) {
+                total += marks[i];
+            }
+
+            let average = total / marks.length;
+
+            document.getElementById("result").innerText =
+                "Average Marks: " + average.toFixed(2);
+        }
+
+        function showHighest() {
+            let marks = getMarks();
+
+            let highest = marks[0];
+
+            for (let i = 1; i < marks.length; i++) {
+                if (marks[i] > highest) {
+                    highest = marks[i];
+                }
+            }
+
+            document.getElementById("result").innerText =
+                "Highest Marks: " + highest;
+        }
+
+        function showLowest() {
+            let marks = getMarks();
+
+            let lowest = marks[0];
+
+            for (let i = 1; i < marks.length; i++) {
+                if (marks[i] < lowest) {
+                    lowest = marks[i];
+                }
+            }
+
+            document.getElementById("result").innerText =
+                "Lowest Marks: " + lowest;
+        }
+
+        function countPassed() {
+            let marks = getMarks();
+
+            let passed = 0;
+
+            for (let i = 0; i < marks.length; i++) {
+                if (marks[i] >= 35) {
+                    passed++;
+                }
+            }
+
+            document.getElementById("result").innerText =
+                "Passed Students: " + passed;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+        }
+
+        .container{
+            width:400px;
+            background:#fff;
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:20px;
+            color:#333;
+        }
+
+        .password-box{
+            display:flex;
+            margin-bottom:20px;
+        }
+
+        .password-box input{
+            flex:1;
+            padding:12px;
+            border:2px solid #ddd;
+            border-radius:8px 0 0 8px;
+            outline:none;
+            font-size:16px;
+        }
+
+        .password-box button{
+            border:none;
+            padding:12px 18px;
+            background:#667eea;
+            color:white;
+            cursor:pointer;
+            border-radius:0 8px 8px 0;
+            font-weight:bold;
+        }
+
+        .password-box button:hover{
+            background:#5568d8;
+        }
+
+        .length-box{
+            margin-bottom:20px;
+        }
+
+        .length-box label{
+            display:flex;
+            justify-content:space-between;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        input[type="range"]{
+            width:100%;
+            cursor:pointer;
+        }
+
+        .options{
+            display:flex;
+            gap:20px;
+        }
+
+        .options label{
+            display:flex;
+            align-items:center;
+            gap:6px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Password Generator</h2>
+
+        <div class="password-box">
+            <input type="text" id="input" readonly>
+            <button id="copyBtn">Copy</button>
+        </div>
+
+        <div class="length-box">
+            <label>
+                Password Length
+                <span id="lengthValue">8</span>
+            </label>
+
+            <input
+                type="range"
+                max="100"
+                min="6"
+                value="8"
+                id="length">
+        </div>
+
+        <div class="options">
+            <label>
+                <input type="checkbox" id="numbers">
+                Numbers
+            </label>
+
+            <label>
+                <input type="checkbox" id="symbols">
+                Symbols
+            </label>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("input");
+        const copyBtn = document.getElementById("copyBtn");
+        const lengthValue = document.getElementById("lengthValue");
+        const numbers = document.getElementById("numbers");
+        const symbols = document.getElementById("symbols");
+        const length = document.getElementById("length");
+
+        function generatePassword() {
+            let chars =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+            if (numbers.checked) {
+                chars += "0123456789";
+            }
+
+            if (symbols.checked) {
+                chars += "!@#$%^&*()_+-={}[]|:;<>,.?/";
+            }
+
+            let password = "";
+            const passwordLength = Number(length.value);
+
+            for (let i = 0; i < passwordLength; i++) {
+                const randomIndex =
+                    Math.floor(Math.random() * chars.length);
+
+                password += chars[randomIndex];
+            }
+
+            input.value = password;
+        }
+
+        length.addEventListener("input", () => {
+            lengthValue.textContent = length.value;
+            generatePassword();
+        });
+
+        numbers.addEventListener("change", generatePassword);
+        symbols.addEventListener("change", generatePassword);
+
+        copyBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(input.value);
+
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = "Copied!";
+
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 1500);
+        });
+
+        generatePassword();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Utility App</title>
+
+    <style>
+        body{
+            background-color: black;
+            color: wheat;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1{
+            margin-bottom: 30px;
+        }
+
+        input{
+            padding: 10px;
+            width: 250px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border: 2px solid wheat;
+            background-color: black;
+            color: wheat;
+            border-radius: 5px;
+        }
+
+        .btn-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        button{
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: wheat;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            opacity: 0.8;
+        }
+
+        #result{
+            font-size: 22px;
+            color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Math Utility App</h1>
+
+    <input type="number" id="input" placeholder="Enter a number">
+
+    <div class="btn-container">
+        <button onclick="factorial()">Factorial</button>
+        <button onclick="palindrome()">Palindrome</button>
+        <button onclick="reverseNumber()">Reverse Number</button>
+        <button onclick="sumOfDigits()">Sum Of Digits</button>
+        <button onclick="countDigits()">Count Digits</button>
+        <button onclick="primeCheck()">Prime Check</button>
+    </div>
+
+    <h3 id="result"></h3>
+
+    <script>
+
+        const input = document.getElementById("input")
+        const result = document.getElementById("result")
+
+        function factorial(){
+
+            let n = Number(input.value)
+
+            if(n < 0){
+                result.innerHTML = "Factorial does not exist for negative numbers"
+                return
+            }
+
+            let res = 1
+
+            for(let i=1; i<=n; i++){
+                res *= i
+            }
+
+            result.innerHTML = `Factorial of ${n} is ${res}`
+
+            input.value = ""
+        }
+
+        function palindrome(){
+
+            let n = input.value
+            let isPalindrome = true
+
+            for(let i=0; i<n.length/2; i++){
+
+                if(n[i] !== n[n.length-1-i]){
+                    isPalindrome = false
+                    break
+                }
+            }
+
+            if(isPalindrome){
+                result.innerHTML = `${n} is a palindrome`
+            }else{
+                result.innerHTML = `${n} is not a palindrome`
+            }
+
+            input.value = ""
+        }
+
+        function reverseNumber(){
+
+            let original = input.value
+            let n = Number(original)
+
+            let res = 0
+
+            while(n > 0){
+
+                let d = n % 10
+
+                res = res * 10 + d
+
+                n = Math.floor(n / 10)
+            }
+
+            result.innerHTML = `Reverse of ${original} is ${res}`
+
+            input.value = ""
+        }
+
+        function sumOfDigits(){
+
+            let original = input.value
+            let n = Number(original)
+
+            let res = 0
+
+            while(n > 0){
+
+                let d = n % 10
+
+                res += d
+
+                n = Math.floor(n / 10)
+            }
+
+            result.innerHTML = `Sum of digits of ${original} is ${res}`
+
+            input.value = ""
+        }
+
+        function countDigits(){
+
+            let original = input.value
+            let n = Number(original)
+
+            if(n === 0){
+                result.innerHTML = `Number of digits in 0 is 1`
+                return
+            }
+
+            let count = 0
+
+            while(n > 0){
+
+                count++
+
+                n = Math.floor(n / 10)
+            }
+
+            result.innerHTML = `Number of digits in ${original} is ${count}`
+
+            input.value = ""
+        }
+
+        function primeCheck(){
+
+            let n = Number(input.value)
+
+            if(n <= 1){
+                result.innerHTML = `${n} is not a prime number`
+                input.value = ""
+                return
+            }
+
+            let isPrime = true
+
+            for(let i=2; i<n; i++){
+
+                if(n % i === 0){
+                    isPrime = false
+                    break
+                }
+            }
+
+            if(isPrime){
+                result.innerHTML = `${n} is a prime number`
+            }else{
+                result.innerHTML = `${n} is not a prime number`
+            }
+
+            input.value = ""
+        }
+
+    </script>
+
+</body>
+</html>
