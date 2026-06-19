@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Expense Tracker</h1>
+<div id="salarySection">
+    <input
+        type="number"
+        id="monthlySalaryInput"
+        placeholder="Enter salary"
+    >
+
+    <button onclick="saveSalary()">
+        Save Salary
+    </button>
+</div>
+
+<div id="expenseDashboard">
+
+    <h2>
+        Monthly Salary ₹
+        <span id="monthlySalaryDisplay">0</span>
+    </h2>
+    <button onclick="resetSalary()">
+        Reset Salary
+    </button><br>
+    <input
+        type="text"
+        id="expenseTitleInput"
+        placeholder="Expense Title"
+    >
+
+    <input
+        type="number"
+        id="expenseAmountInput"
+        placeholder="Expense Amount"
+    >
+
+    <button onclick="addExpense()">
+        Add Expense
+    </button>
+
+    <div id="expenseListContainer"></div>
+
+    <p>
+        Total Expense ₹
+        <span id="totalExpenseDisplay">0</span>
+    </p>
+
+    <p>
+        Remaining Balance ₹
+        <span id="remainingBalanceDisplay">0</span>
+    </p>
+
+</div>
+<script>
+const salarySection =document.getElementById("salarySection");
+const monthlySalaryInput =document.getElementById("monthlySalaryInput");
+const expenseDashboard =document.getElementById("expenseDashboard");
+const monthlySalaryDisplay =document.getElementById("monthlySalaryDisplay");
+const expenseTitleInput =document.getElementById("expenseTitleInput");
+const expenseAmountInput =document.getElementById("expenseAmountInput");
+const expenseListContainer =document.getElementById("expenseListContainer");
+const totalExpenseDisplay =document.getElementById("totalExpenseDisplay");
+const remainingBalanceDisplay =document.getElementById("remainingBalanceDisplay");
+let arr=[]
+function toggleDashboard(){
+    if(Number(monthlySalaryInput.value)>0){
+        expenseDashboard.style.display="block"
+        salarySection.style.display="none"
+    }else{
+        expenseDashboard.style.display="none"
+        salarySection.style.display="block"
+    }
+}
+function saveSalary(){
+    let s=Number(monthlySalaryInput.value);
+    monthlySalaryDisplay.textContent=s
+    toggleDashboard()
+    console.log("salsry updated")
+}
+function resetSalary(){
+
+}
+function addExpense(){
+    let expenset=expenseTitleInput.value
+    let expensea=Number(expenseAmountInput.value)
+    let ex={
+        tilte:expenset,
+        amount:expensea
+    }
+    arr.push(ex)
+    console.log(ex)
+    
+}
+
+toggleDashboard()
+</script>
+</body>
+</html>
