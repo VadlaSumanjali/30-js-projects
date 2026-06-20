@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Data Extractor</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#0f172a,#1e293b);
+        }
+
+        .container{
+            width:500px;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+
+        h1{
+            color:#1e293b;
+            margin-bottom:20px;
+        }
+
+        button{
+            padding:12px 20px;
+            border:none;
+            border-radius:8px;
+            background:#3b82f6;
+            color:white;
+            cursor:pointer;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#2563eb;
+            transform:translateY(-2px);
+        }
+
+        #result{
+            margin-top:20px;
+            padding:15px;
+            background:#f8fafc;
+            border-radius:10px;
+            text-align:left;
+            line-height:1.8;
+            border-left:5px solid #3b82f6;
+        }
+
+        #result h3{
+            color:#1e293b;
+            margin-bottom:10px;
+        }
+
+        #result p{
+            color:#334155;
+        }
+
+        strong{
+            color:#0f172a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Profile Data Extractor</h1>
+
+        <button onclick="data()">
+            Extract Data
+        </button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+
+        function data() {
+
+            const student = {
+                name: "Suma",
+                age: 20,
+                course: "Full Stack",
+                skills: ["HTML", "CSS", "JavaScript", "React"],
+                marks: {
+                    html: 95,
+                    css: 90,
+                    js: 85
+                }
+            };
+
+            // Object Destructuring
+            const {
+                name,
+                age,
+                course,
+                skills,
+                marks
+            } = student;
+
+            // Array Destructuring
+            const [firstSkill, secondSkill, thirdSkill, fourthSkill] = skills;
+
+            // Nested Object Destructuring
+            const { html, css, js } = marks;
+
+            const average = ((html + css + js) / 3).toFixed(2);
+
+            const result = document.getElementById("result");
+
+            result.innerHTML = `
+                <h3>Student Profile</h3>
+
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Age:</strong> ${age}</p>
+                <p><strong>Course:</strong> ${course}</p>
+
+                <hr><br>
+
+                <p><strong>Skill 1:</strong> ${firstSkill}</p>
+                <p><strong>Skill 2:</strong> ${secondSkill}</p>
+                <p><strong>Skill 3:</strong> ${thirdSkill}</p>
+                <p><strong>Skill 4:</strong> ${fourthSkill}</p>
+
+                <hr><br>
+
+                <p><strong>HTML Marks:</strong> ${html}</p>
+                <p><strong>CSS Marks:</strong> ${css}</p>
+                <p><strong>JavaScript Marks:</strong> ${js}</p>
+
+                <p><strong>Average Marks:</strong> ${average}</p>
+            `;
+        }
+
+    </script>
+
+</body>
+</html>
