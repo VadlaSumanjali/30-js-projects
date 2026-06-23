@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .item {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .not-found {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Search App</h2>
+
+    <input
+        type="text"
+        id="val"
+        placeholder="Search..."
+        oninput="search()"
+    >
+
+    <div id="result"></div>
+
+    <script>
+        const employees = [
+            "hi",
+            "hello",
+            "sss",
+            "world",
+            "place",
+            "one"
+        ];
+
+        const result = document.getElementById("result");
+
+        function displayItems(items) {
+            result.innerHTML = items
+                .map(item => `<div class="item">${item}</div>`)
+                .join("");
+        }
+
+        // Show all items when page loads
+        displayItems(employees);
+
+        function search() {
+            const text = document
+                .getElementById("val")
+                .value
+                .toLowerCase()
+                .trim();
+
+            if (text === "") {
+                displayItems(employees);
+                return;
+            }
+
+            const filteredItems = employees.filter(item =>
+                item.toLowerCase().includes(text)
+            );
+
+            if (filteredItems.length === 0) {
+                result.innerHTML =
+                    `<div class="not-found">Not Found</div>`;
+            } else {
+                displayItems(filteredItems);
+            }
+        }
+    </script>
+
+</body>
+</html>
