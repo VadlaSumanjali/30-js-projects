@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz App</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#38bdf8;
+}
+
+.progress{
+    margin-bottom:20px;
+    color:#cbd5e1;
+}
+
+h3{
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+.option{
+    background:#334155;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.option:hover{
+    background:#475569;
+}
+
+.option label{
+    cursor:pointer;
+    margin-left:8px;
+}
+
+input[type="radio"]{
+    accent-color:#38bdf8;
+}
+
+.buttons{
+    display:flex;
+    justify-content:space-between;
+    margin-top:20px;
+}
+
+button{
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    background:#38bdf8;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#0ea5e9;
+    transform:translateY(-2px);
+}
+
+.score{
+    text-align:center;
+}
+
+.score h2{
+    color:#22c55e;
+    margin-bottom:15px;
+}
+
+.score h3{
+    margin-bottom:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>JavaScript Quiz App</h1>
+    <div id="question"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    question: "Which keyword is used to declare a variable in JavaScript?",
+    options: ["var", "int", "string", "define"],
+    answer: "var"
+  },
+  {
+    question: "Which method is used to transform every element in an array?",
+    options: ["filter()", "find()", "map()", "push()"],
+    answer: "map()"
+  },
+  {
+    question: "What does filter() return?",
+    options: ["Object", "String", "Array", "Boolean"],
+    answer: "Array"
+  },
+  {
+    question: "What does find() return when no match is found?",
+    options: ["[]", "null", "undefined", "false"],
+    answer: "undefined"
+  },
+  {
+    question: "Which operator is used for spread syntax?",
+    options: ["...", "===", "=>", "??"],
+    answer: "..."
+  },
+  {
+    question: "Which method converts a string to uppercase?",
+    options: ["upper()", "toUpperCase()", "capitalize()", "toUpper()"],
+    answer: "toUpperCase()"
+  },
+  {
+    question: "What is the output type of map()?",
+    options: ["Array", "Object", "Number", "String"],
+    answer: "Array"
+  },
+  {
+    question: "Which array method is used to search for the first matching item?",
+    options: ["filter()", "find()", "map()", "reduce()"],
+    answer: "find()"
+  },
+  {
+    question: "Template literals use which symbol?",
+    options: ["'", "\"", "`", "#"],
+    answer: "`"
+  },
+  {
+    question: "Which condition checks both value and type?",
+    options: ["==", "!=", "===", "="],
+    answer: "==="
+  }
+];
+
+const quest = document.getElementById("question");
+
+let qcount = 0;
+const userAnswers = [];
+
+const next = document.createElement("button");
+next.textContent = "Next";
+
+const prev = document.createElement("button");
+prev.textContent = "Previous";
+
+next.addEventListener("click", () => {
+
+    const selected = document.querySelector(
+        `input[name="question${qcount}"]:checked`
+    );
+
+    if (selected) {
+        userAnswers[qcount] = selected.value;
+    }
+
+    if (qcount < questions.length - 1) {
+        qcount++;
+        showQuestion();
+    } else {
+        calculateScore();
+    }
+});
+
+prev.addEventListener("click", () => {
+
+    const selected = document.querySelector(
+        `input[name="question${qcount}"]:checked`
+    );
+
+    if (selected) {
+        userAnswers[qcount] = selected.value;
+    }
+
+    if (qcount > 0) {
+        qcount--;
+        showQuestion();
+    }
+});
+
+function showQuestion() {
+
+    quest.innerHTML = `
+        <div class="progress">
+            Question ${qcount + 1} of ${questions.length}
+        </div>
+
+        <h3>${questions[qcount].question}</h3>
+
+        ${questions[qcount].options.map(option => `
+            <div class="option">
+                <input
+                    type="radio"
+                    id="${option}"
+                    value="${option}"
+                    name="question${qcount}"
+                    ${userAnswers[qcount] === option ? "checked" : ""}
+                >
+                <label for="${option}">${option}</label>
+            </div>
+        `).join("")}
+    `;
+
+    prev.style.display = qcount === 0 ? "none" : "inline-block";
+
+    next.textContent =
+        qcount === questions.length - 1
+        ? "Submit"
+        : "Next";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "buttons";
+
+    btnContainer.appendChild(prev);
+    btnContainer.appendChild(next);
+
+    quest.appendChild(btnContainer);
+}
+
+function calculateScore() {
+
+    let score = 0;
+
+    questions.forEach((q, index) => {
+        if (userAnswers[index] === q.answer) {
+            score++;
+        }
+    });
+
+    quest.innerHTML = `
+        <div class="score">
+            <h2>🎉 Quiz Completed!</h2>
+            <h3>Your Score: ${score} / ${questions.length}</h3>
+            <button onclick="location.reload()">
+                Restart Quiz
+            </button>
+        </div>
+    `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
