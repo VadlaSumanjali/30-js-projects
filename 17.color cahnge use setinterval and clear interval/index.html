@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Background Color</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        transition:background-color 0.5s ease;
+    }
+
+    .container{
+        background:rgba(255,255,255,0.9);
+        padding:40px;
+        border-radius:15px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        text-align:center;
+    }
+
+    h1{
+        margin-bottom:25px;
+        color:#333;
+    }
+
+    button{
+        padding:12px 30px;
+        margin:10px;
+        border:none;
+        border-radius:8px;
+        font-size:18px;
+        font-weight:bold;
+        cursor:pointer;
+        transition:0.3s;
+    }
+
+    #start{
+        background:#28a745;
+        color:white;
+    }
+
+    #start:hover{
+        background:#218838;
+        transform:scale(1.05);
+    }
+
+    #stop{
+        background:#dc3545;
+        color:white;
+    }
+
+    #stop:hover{
+        background:#c82333;
+        transform:scale(1.05);
+    }
+
+    p{
+        margin-top:20px;
+        font-size:18px;
+        color:#444;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Random Background Color Changer</h1>
+
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <p>Click <b>Start</b> to change the background color every second.</p>
+</div>
+
+<script>
+const randomColor = function () {
+    const hex = "0123456789ABCDEF";
+    let color = "#";
+
+    for (let i = 0; i < 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+};
+
+let interval = null;
+
+const startcolor = function () {
+    if (!interval) {
+        interval = setInterval(() => {
+            document.body.style.backgroundColor = randomColor();
+        }, 1000); // Change to 100 for faster color changes
+    }
+};
+
+const stopcolor = function () {
+    clearInterval(interval);
+    interval = null;
+};
+
+document.getElementById("start").addEventListener("click", startcolor);
+document.getElementById("stop").addEventListener("click", stopcolor);
+</script>
+
+</body>
+</html>
