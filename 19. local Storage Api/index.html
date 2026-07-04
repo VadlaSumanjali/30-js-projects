@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="change()">change color</button>
+<script>
+    const savedcoloe=localStorage.getItem("color");
+    if(savedcoloe){
+        document.body.style.backgroundColor=savedcoloe
+    }
+    function change(){
+        if(document.body.style.backgroundColor==="black"){
+            document.body.style.backgroundColor="white"
+        }else{
+            document.body.style.backgroundColor="black"
+
+        }
+        localStorage.setItem("color",document.body.style.backgroundColor)
+        
+    }
+    // localStorage.setItem("color",document.body.style.backgroundColor)
+    // const color=localStorage.getItem("color")
+    // // localStorage.setItem("name","suma");
+    // const name=localStorage.getItem("name")
+    // console.log(name)
+    // localStorage.removeItem("name")
+    // localStorage.clear()
+    // const user={
+    //     name:"Suma",
+    //     age:20
+    // };
+    // localStorage.setItem(
+    //     "user",
+    //     JSON.stringify(user)
+    // )
+    // const data=JSON.parse(
+    //     localStorage.getItem("user")
+    // )
+    // console.log(data.name)
+</script>
+</body>
+</html>
