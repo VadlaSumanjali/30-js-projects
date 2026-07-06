@@ -1,104 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Expense Tracker</h1>
-<div id="salarySection">
-    <input
-        type="number"
-        id="monthlySalaryInput"
-        placeholder="Enter salary"
-    >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker</title>
 
-    <button onclick="saveSalary()">
-        Save Salary
-    </button>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:400px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    color:white;
+    font-size:16px;
+    margin-top:10px;
+}
+
+.save-btn{
+    background:#28a745;
+}
+
+.add-btn{
+    background:#007bff;
+}
+
+.reset-btn{
+    background:#dc3545;
+}
+
+.summary{
+    margin-top:20px;
+    background:#f7f7f7;
+    padding:15px;
+    border-radius:8px;
+}
+
+.summary p{
+    margin:10px 0;
+    font-weight:bold;
+}
+
+#expenseList{
+    margin-top:20px;
+}
+
+.card{
+    background:#f1f1f1;
+    border-left:5px solid #007bff;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:6px;
+}
+
+.card h3{
+    margin-bottom:5px;
+}
+
+.card p{
+    color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Expense Tracker</h1>
+
+<div id="salarySection">
+
+<input
+type="number"
+id="monthlySalaryInput"
+placeholder="Enter Monthly Salary">
+
+<button class="save-btn" onclick="saveSalary()">
+Save Salary
+</button>
+
 </div>
 
 <div id="expenseDashboard">
 
-    <h2>
-        Monthly Salary ₹
-        <span id="monthlySalaryDisplay">0</span>
-    </h2>
-    <button onclick="resetSalary()">
-        Reset Salary
-    </button><br>
-    <input
-        type="text"
-        id="expenseTitleInput"
-        placeholder="Expense Title"
-    >
+<h2>
+Salary : ₹
+<span id="monthlySalaryDisplay">0</span>
+</h2>
 
-    <input
-        type="number"
-        id="expenseAmountInput"
-        placeholder="Expense Amount"
-    >
+<button class="reset-btn" onclick="resetSalary()">
+Reset Salary
+</button>
 
-    <button onclick="addExpense()">
-        Add Expense
-    </button>
+<input
+type="text"
+id="expenseTitleInput"
+placeholder="Expense Title">
 
-    <div id="expenseListContainer"></div>
+<input
+type="number"
+id="expenseAmountInput"
+placeholder="Expense Amount">
 
-    <p>
-        Total Expense ₹
-        <span id="totalExpenseDisplay">0</span>
-    </p>
+<button class="add-btn" onclick="addExpense()">
+Add Expense
+</button>
 
-    <p>
-        Remaining Balance ₹
-        <span id="remainingBalanceDisplay">0</span>
-    </p>
+<div id="expenseList"></div>
+
+<div class="summary">
+
+<p>
+Total Expense :
+₹ <span id="totalExpenseDisplay">0</span>
+</p>
+
+<p>
+Remaining Balance :
+₹ <span id="remainingBalanceDisplay">0</span>
+</p>
 
 </div>
+
+</div>
+
+</div>
+
 <script>
-const salarySection =document.getElementById("salarySection");
-const monthlySalaryInput =document.getElementById("monthlySalaryInput");
-const expenseDashboard =document.getElementById("expenseDashboard");
-const monthlySalaryDisplay =document.getElementById("monthlySalaryDisplay");
-const expenseTitleInput =document.getElementById("expenseTitleInput");
-const expenseAmountInput =document.getElementById("expenseAmountInput");
-const expenseListContainer =document.getElementById("expenseListContainer");
-const totalExpenseDisplay =document.getElementById("totalExpenseDisplay");
-const remainingBalanceDisplay =document.getElementById("remainingBalanceDisplay");
-let arr=[]
+
+const salarySection=document.getElementById("salarySection");
+const expenseDashboard=document.getElementById("expenseDashboard");
+
+const monthlySalaryInput=document.getElementById("monthlySalaryInput");
+
+const monthlySalaryDisplay=document.getElementById("monthlySalaryDisplay");
+
+const expenseTitleInput=document.getElementById("expenseTitleInput");
+
+const expenseAmountInput=document.getElementById("expenseAmountInput");
+
+const expenseList=document.getElementById("expenseList");
+
+const totalExpenseDisplay=document.getElementById("totalExpenseDisplay");
+
+const remainingBalanceDisplay=document.getElementById("remainingBalanceDisplay");
+
+let salary=0;
+let expenses=[];
+
+const savedSalary=localStorage.getItem("salary");
+const savedExpenses=localStorage.getItem("expenses");
+
+if(savedSalary){
+    salary=Number(savedSalary);
+}
+
+if(savedExpenses){
+    expenses=JSON.parse(savedExpenses);
+}
+
+toggleDashboard();
+renderExpenses();
+updateSummary();
+
 function toggleDashboard(){
-    if(Number(monthlySalaryInput.value)>0){
-        expenseDashboard.style.display="block"
-        salarySection.style.display="none"
-    }else{
-        expenseDashboard.style.display="none"
-        salarySection.style.display="block"
+
+    if(salary>0){
+
+        salarySection.style.display="none";
+        expenseDashboard.style.display="block";
+        monthlySalaryDisplay.textContent=salary;
+
     }
+
+    else{
+
+        salarySection.style.display="block";
+        expenseDashboard.style.display="none";
+
+    }
+
 }
+
 function saveSalary(){
-    let s=Number(monthlySalaryInput.value);
-    monthlySalaryDisplay.textContent=s
-    toggleDashboard()
-    console.log("salsry updated")
+
+    const value=Number(monthlySalaryInput.value);
+
+    if(value<=0){
+
+        alert("Enter valid salary");
+        return;
+
+    }
+
+    salary=value;
+
+    localStorage.setItem("salary",salary);
+
+    monthlySalaryDisplay.textContent=salary;
+
+    toggleDashboard();
+
+    updateSummary();
+
 }
+
+function addExpense(){
+
+    const title=expenseTitleInput.value.trim();
+
+    const amount=Number(expenseAmountInput.value);
+
+    if(title==="" || amount<=0){
+
+        alert("Enter valid expense");
+
+        return;
+
+    }
+
+    const total=expenses.reduce((sum,item)=>sum+item.amount,0);
+
+    if(amount>(salary-total)){
+
+        alert("Insufficient Balance");
+
+        return;
+
+    }
+
+    expenses.push({
+
+        title:title,
+
+        amount:amount
+
+    });
+
+    localStorage.setItem("expenses",JSON.stringify(expenses));
+
+    expenseTitleInput.value="";
+    expenseAmountInput.value="";
+
+    renderExpenses();
+
+    updateSummary();
+
+}
+
+function renderExpenses(){
+
+    expenseList.innerHTML=expenses.map((item,index)=>`
+
+    <div class="card">
+
+        <h3>${item.title}</h3>
+
+        <p>₹ ${item.amount}</p>
+
+    </div>
+
+    `).join("");
+
+}
+
+function updateSummary(){
+
+    const totalExpense=expenses.reduce((sum,item)=>sum+item.amount,0);
+
+    totalExpenseDisplay.textContent=totalExpense;
+
+    remainingBalanceDisplay.textContent=salary-totalExpense;
+
+}
+
 function resetSalary(){
 
-}
-function addExpense(){
-    let expenset=expenseTitleInput.value
-    let expensea=Number(expenseAmountInput.value)
-    let ex={
-        tilte:expenset,
-        amount:expensea
-    }
-    arr.push(ex)
-    console.log(ex)
-    
+    if(!confirm("Reset everything?")) return;
+
+    salary=0;
+
+    expenses=[];
+
+    localStorage.clear();
+
+    monthlySalaryInput.value="";
+
+    expenseTitleInput.value="";
+
+    expenseAmountInput.value="";
+
+    expenseList.innerHTML="";
+
+    totalExpenseDisplay.textContent=0;
+
+    remainingBalanceDisplay.textContent=0;
+
+    monthlySalaryDisplay.textContent=0;
+
+    toggleDashboard();
+
 }
 
-toggleDashboard()
 </script>
+
 </body>
 </html>
