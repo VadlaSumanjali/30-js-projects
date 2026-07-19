@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            color: white;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <input id="input" type="text" placeholder="enter the title" required><br>
+            <textarea id="description" placeholder="enter the description" required></textarea><br>
+            <button onclick="addNotes()">Add Notes</button>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+<script>
+    let notes=[]
+    let result =document.getElementById("result")
+    function addNotes(){
+        let input=document.getElementById("input")
+        let val=input.value
+        let description=document.getElementById("description")
+        let des=description.value
+        let obj={
+            title:val,
+            description:des
+        }
+        notes.push(obj)
+        console.log(notes)
+        input.value=""
+        description.value=""
+        render()
+
+    }
+    function render(){
+        console.log("hh")
+        result.innerHTML=notes.map((i)=>`
+           <div>
+            <h2>${i.title}</h2>
+            <p>${i.description}</p>
+            
+            </div>
+        
+        `).join("");
+
+
+    }
+
+
+</script>
+</body>
+</html>
